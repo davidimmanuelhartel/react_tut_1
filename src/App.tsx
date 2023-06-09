@@ -1,18 +1,17 @@
+import { MouseEvent } from "react";
+import Alert from "./components/Alert";
 import ListGroup from "./components/ListGroup";
+import Button from "./components/Button";
+
+// event handler
+const handleClick = (event: MouseEvent) => console.log(event);
 
 function App() {
-  let items = [
-    "new york",
-    "los angeles",
-    "chicago",
-    "houston",
-    "phoenix",
-    "philadelphia",
-  ];
-
   return (
     <div>
-      <ListGroup items={items} heading="Cities" />
+      <Button color="danger" onClick={() => console.log("clicked")}>
+        My Button
+      </Button>
     </div>
   );
 }
