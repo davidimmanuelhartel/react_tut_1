@@ -1,10 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-
-const List = styled.ul`
-  list-style: none;
-  padding: 0;
-`;
+import { Project } from "../Project";
+import Box from "@mui/material/Box";
+import List from "@mui/material/List";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
 
 interface ListItemProps {
   active: boolean;
@@ -16,33 +16,32 @@ const ListItem = styled.li<ListItemProps>`
 `;
 
 interface Props {
-  items: string[];
+  projects: Project[];
   heading: string;
-  onSelectItem: (item: string) => void;
+  onSelectItem: (project: Project) => void;
 }
 
-function ListGroup({ items, heading, onSelectItem }: Props) {
+function ListGroup({ projects, heading, onSelectItem }: Props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
+    // </>{projects.length === 0 && <p>There are no items in the list</p>}
     <>
-      <h1>{heading}</h1>
-      {items.length === 0 && <p>There are no items in the list</p>}
-      <List>
-        {items.map((item, index) => (
-          <ListItem
-            active={index === selectedIndex}
-            key={item}
-            onClick={() => {
-              setSelectedIndex(index);
-              onSelectItem(item);
-            }}
-          >
-            {" "}
-            {item}
-          </ListItem>
-        ))}
-      </List>
+      <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
+        <List component="nav" aria-label="selection list">
+          {projects.map((project, index) => (
+            <ListItemButton
+              selected={index === selectedIndex}
+              onClick={() => {
+                setSelectedIndex(index);
+                onSelectItem(project);
+              }}
+            >
+              <ListItemText primary={project.name} />
+            </ListItemButton>
+          ))}
+        </List>
+      </Box>
     </>
   );
 }
